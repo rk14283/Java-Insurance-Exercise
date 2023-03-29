@@ -31,11 +31,10 @@ public class Main{
                     System.out.println("User found");
                     //checked with debugger, it works
                     System.out.println("These are your Insurances!");
-                    System.out.println(users.users.get(i).insurances);
                     for (int j = 0; j < users.users.get(i).insurances.size(); j++) {
-                        //System.out.println(users.users.get(i).insurances.get(j));
-                        System.out.println(users.users.get(j).insurances.get(i));
-
+                        System.out.println(users.users.get(i).insurances.get(j));
+                        //System.out.println(users.users.get(j).insurances.get(i));
+                        start(users);
                     }
 
                 }
