@@ -65,13 +65,22 @@ public class Main{
                     start(users);
                     break;
                 case "YES":
+                    //display is working, adding insurance is not working
                     System.out.println("User found");
+
                     for (int i = 0; i < users.users.size(); i++) {
                         if(users.users.get(i).email.contains(UserEmail)){
                             //System.out.println(users.users.get(i).email);
                             //ArrayList insurances = users.users.get(i).insurances;
-                            System.out.println(users.users.get(i).insurances);}
-                            //System.out.println(insurances);
+                            //System.out.println(users.users.get(i).insurances);
+                            ArrayList<Insurance> insurances = users.users.get(i).insurances;
+
+                            for (int counter=0; counter<insurances.size();counter++){
+                                System.out.println(insurances.get(counter));
+                            }
+
+                        }
+
 
 
 
@@ -81,16 +90,7 @@ public class Main{
 
 
 
-//                    for (int j = 0; j < users.users.get(j).insurances.size(); j++) {
-//
-//                        ArrayList insurances = users.users.get(j).insurances;
-//
-//                        for ( int k=0; k<insurances.size();k++ ){
-//
-//                            Insurance insurance = users.users.get(j).insurances.get(k);
-//                            System.out.println(insurance);
-//                            //System.out.println(insurance.Premium());
-//                        }
+
 //
 //
 
@@ -156,9 +156,7 @@ public class Main{
                             System.out.println("your premium is "+ sum);
 
                         }
-                        //System.out.println(insurances);
-                        //manke an array list of insurances
-                        //loop over it twice to get premiums
+
 
 
                     }
@@ -215,6 +213,8 @@ public class Main{
         System.out.println("Do you already have an insurance with Star, if yes enter 1 or enter 2");
         Scanner readlineUserChecker = new Scanner(System.in);
         int UserChoice = Integer.parseInt(readlineUserChecker.nextLine());
+        String decesion = "NO";
+
 
 
         switch(UserChoice){
@@ -225,22 +225,59 @@ public class Main{
 //                System.out.println(users.users.size());
                 //System.out.println(users.users.getClass()); it is an arrayList
 
-                for (int i=0; i<users.users.size(); i++) {
-                    if(UserEmail.equals(users.users.get(i).email)) {
-                        System.out.println("User found");
-                        //checked with debugger, it works
-                        users.users.get(i).addInsurance(userInsurance);
-                        System.out.println("Insurace added!");
-                    }
-                    else{
-                        System.out.println("user not found");
-                        break;
-                    }
+//                //not finding the user correctly
+//                for (int i=0; i<users.users.size(); i++) {
+//                    //either this if is incorrect or something else is wrong
+//                    if(UserEmail.equals(users.users.get(i).email)) {
 
-
+                for (int i = 0; i < users.users.size(); i++) {
+                    if (users.users.get(i).email.contains(UserEmail)) {
+                       // System.out.println("User found");
+                        decesion = "YES";
+                    }
                 }
-                start(users);
+                switch(decesion) {
+
+                    case "NO":
+                        System.out.println("user not found");
+                        start(users);
+                        break;
+
+                    case "YES":
+                        for (int j = 0; j < users.users.size(); j++) {
+                           // System.out.println(UserEmail);
+                            //if statement is not getting implemented
+                              if (users.users.get(j).email.equals(UserEmail)) {
+                                    System.out.println("User found");
+                                    //checked with debugger, it works
+                                    users.users.get(j).addInsurance(userInsurance);
+                                  System.out.println("Insurace added!");
+
+                            }
+
+
+
+                        }
+                        start(users);
+                        break;
+                }
+
+
+//                        for (int i = 0; i < users.users.size(); i++) {
+//                            if(users.users.get(i).email.contains(UserEmail)){
+//                        System.out.println("User found");
+//                        //checked with debugger, it works
+//                        users.users.get(i).addInsurance(userInsurance);
+//                        System.out.println("Insurace added!");
+//                    }
+//                    else{
+//                        System.out.println("user not found");
+//                        break;
+//                    }
+
+
                 break;
+
             case 2:
                 System.out.println("Please enter details as they appear");
                 User user = createUser();
