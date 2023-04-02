@@ -1,6 +1,8 @@
 package com.example.insuranceplanupdated;
+import java.lang.reflect.Array;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.List;
 public class Main{
     //public Scanner readline = new Scanner(System.in);
     public static void main(String[] args){
@@ -8,12 +10,20 @@ public class Main{
         User rohan = new User("rohan@rohan", "rohan kale", "1243242" );
         Insurance rohanInsurancePhone = new PhoneInsurance(200);
         Insurance rohanInsuranceHouse = new HouseInsurance(300000);
+        Insurance rohanInsuranceCar = new CarInsurance(300000);
        rohan.addInsurance(rohanInsurancePhone);
 
-        //rohan.insurances.add(rohanInsuranceHouse.set(0));
-        //rohan.addInsurance(rohanInsuranceHouse);
+
+
+//        Insurance rohanPhoneInsuranceTwo = new PhoneInsurance(300);
+        double premuimOne =  rohanInsurancePhone.CalculatePremium(rohanInsurancePhone.purchasePrice,rohanInsurancePhone.premium);
+//        double premiumTwo = rohanPhoneInsuranceTwo.CalculatePremium(300,0.01);
+        System.out.println(premuimOne);
+//        System.out.println(premiumTwo);
+
+        rohan.addInsurance(rohanInsuranceHouse);
+        rohan.addInsurance(rohanInsuranceCar);
         users.addUser(rohan);
-       // rohan.insurances.asList(rohanInsurancePhone, rohanInsuranceHouse);
 
         start(users);
     }
@@ -37,71 +47,108 @@ public class Main{
 
             Scanner readlineEmailChecker = new Scanner(System.in);
             String UserEmail = readlineEmailChecker.nextLine();
+            String decesion = "NO";
+
 
             for (int i = 0; i < users.users.size(); i++) {
-                if (users.users.get(i).email.contains(UserEmail)){
-                    System.out.println("user found");
-
-                    for (int j = 0; j < users.users.get(i).insurances.size(); j++) {
-                        Insurance insurance = users.users.get(i).insurances.get(j);
-                        //System.out.println(insurance.type + insurance.purchasePrice);
-                        System.out.println(insurance);
-                        start(users);
-
-                    }
+                if (UserEmail.equals(users.users.get(i).email)) {
+                    decesion = "YES";
+                    //System.out.println(decesion);
                 }
-
-                else if (!users.users.get(i).email.contains(UserEmail)){
-                    System.out.println("user not found");
-                   // start(users);
-                }
-
             }
+
+                    switch (decesion) {
+
+                        case "NO":
+                            System.out.println("user not found");
+                             start(users);
+                            break;
+                        case "YES":
+                            System.out.println("User found");
+                            for (int j = 0; j < users.users.get(j).insurances.size(); j++) {
+
+                                ArrayList insurances = users.users.get(j).insurances;
+
+                                for ( int k=0; k<insurances.size();k++ ){
+
+                                    Insurance insurance = users.users.get(j).insurances.get(k);
+                                    System.out.println(insurance);
+                                    //System.out.println(insurance.Premium());
+                                }
+
+
+                                start(users);
+
+
+                            }
+                            break;
+
+                }
+
+
+
+
         }
         else if(choice.equals("3")) {
             System.out.println("Please enter your email");
+            List<Double> premiumsList = new ArrayList<Double>();
             Scanner readlineEmailChecker = new Scanner(System.in);
             String UserEmail = readlineEmailChecker.nextLine();
-            String decesion = null;
+            String decesion = "NO";
+
+
             for (int i = 0; i < users.users.size(); i++) {
                 if (UserEmail.equals(users.users.get(i).email)) {
-                    decesion = "A";
-                    }
-                switch (decesion) {
+                    decesion = "YES";
+                    //System.out.println(decesion);
+                }
+            }
 
-                    default:
-                        System.out.println("user not found");
-                        // start(users);
-                        break;
-                    case "A":
-                        System.out.println("User found");
-                        for (int j = 0; j < users.users.get(i).insurances.size(); j++) {
-                            Insurance insurance = users.users.get(i).insurances.get(j);
-                            //System.out.println(insurance);
-                            System.out.println(insurance.premium);
+            switch (decesion) {
+
+                case "NO":
+                    System.out.println("user not found");
+                    start(users);
+                    break;
+                case "YES":
+                    System.out.println("User found");
+
+                    for (int j = 0; j < users.users.get(j).insurances.size(); j++) {
+                        //this is the potenital solution to the problem, I just don't know how it will handle multiple insurances
+                        ArrayList insurances = users.users.get(j).insurances;
+                        System.out.println("Your insurances are: ");
+                        System.out.println(insurances);
+
+                        for(int x =0; x<users.users.get(j).insurances.size();x++){
+
+
+
+                            premiumsList.add(users.users.get(j).insurances.get(x).CalculatePremium(users.users.get(j).insurances.get(x).purchasePrice,users.users.get(j).insurances.get(x).premium));
+                            //System.out.println(premiumsList);
+
+
 
 
                         }
-                       break;
+                        double sum = 0.0;
+                        for(double element : premiumsList){
+                            sum +=element;
+                        }
+                        //System.out.println(premiumsList);
+                        System.out.println("your premium is "+ sum);
 
 
 
-                }
 
-                }
-//                    System.out.println("User found");
-//                    for (int j = 0; j < users.users.get(i).insurances.size(); j++) {
-//                        Insurance insurance = users.users.get(i).insurances.get(j);
-//                        //System.out.println(insurance);
-//                        System.out.println(insurance.premium);
-//                    }
+                        start(users);
 
 
-//                else{
-//                    System.out.println("user not found");
-//                   // start(users);
-//                }
+                    }
+                    break;
+
+            }
         }
+
         else {
             System.out.println("Command not recognized");
             start(users);
