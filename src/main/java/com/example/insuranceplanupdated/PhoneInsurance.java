@@ -17,8 +17,6 @@ public class PhoneInsurance extends Insurance {
 
     }
 
-    @Override
-    public double CalculatePremium(int purchasePrice, double premium) {
-        return super.CalculatePremium(purchasePrice, 0.01);
-    }
+
+
 }

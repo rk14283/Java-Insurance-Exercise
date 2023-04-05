@@ -48,125 +48,43 @@ public class Main{
 
             Scanner readlineEmailChecker = new Scanner(System.in);
             String UserEmail = readlineEmailChecker.nextLine();
-            String decesion = "NO";
-
-
-            for (int i = 0; i < users.users.size(); i++) {
-                if (UserEmail.equals(users.users.get(i).email)) {
-                    decesion = "YES";
-                    //System.out.println(decesion);
+            User foundUser = users.findByEmail(UserEmail);
+            if (foundUser==null){
+                System.out.println("user not found");
+                start(users);
+            }
+            else {
+                ArrayList insurances = foundUser.insurances;
+                System.out.println("your insurances are: ");
+                for(int i =0; i<insurances.size(); i++){
+                    System.out.println(insurances.get(i));
                 }
-            }
-
-            switch (decesion) {
-
-                case "NO":
-                    System.out.println("user not found");
-                    start(users);
-                    break;
-                case "YES":
-                    //display is working, adding insurance is not working
-                    System.out.println("User found");
-
-                    for (int i = 0; i < users.users.size(); i++) {
-                        if(users.users.get(i).email.contains(UserEmail)){
-                            //System.out.println(users.users.get(i).email);
-                            //ArrayList insurances = users.users.get(i).insurances;
-                            //System.out.println(users.users.get(i).insurances);
-                            ArrayList<Insurance> insurances = users.users.get(i).insurances;
-
-                            for (int counter=0; counter<insurances.size();counter++){
-                                System.out.println(insurances.get(counter));
-                            }
-
-                        }
-
-
-
-
-                    }
-
-
-
-
-
-
-//
-//
-
-//
-//
- //                   }
-                    start(users);
-                    break;
+                start(users);
 
             }
-
-
 
 
         }
         else if(choice.equals("3")) {
             System.out.println("Please enter your email");
-            List<Double> premiumsList = new ArrayList<Double>();
             Scanner readlineEmailChecker = new Scanner(System.in);
             String UserEmail = readlineEmailChecker.nextLine();
-            String decesion = "NO";
+            User foundUser = users.findByEmail(UserEmail);
+            //System.out.println(foundUser);
 
-
-            for (int i = 0; i < users.users.size(); i++) {
-                if (UserEmail.equals(users.users.get(i).email)) {
-                    decesion = "YES";
-                    //System.out.println(decesion);
-                }
+            //Early exit
+            if (foundUser==null){
+                System.out.println("user not found");
+                start(users);
+                return;
             }
+            System.out.println("your insurances are "+foundUser.insurances);
+            double premiumAmount = foundUser.calculateTotalPremium();
+            System.out.println("Your total premium is "+ premiumAmount);
 
-            switch (decesion) {
-
-                case "NO":
-                    System.out.println("user not found");
-                    start(users);
-                    break;
-                case "YES":
-                    System.out.println("User found");
-
-                    for (int i = 0; i < users.users.size(); i++) {
-                        if(users.users.get(i).email.contains(UserEmail)){
-                            //System.out.println(users.users.get(i).email);
-                            //ArrayList insurances = users.users.get(i).insurances;
-                            //System.out.println(users.users.get(i).insurances);
-
-                            ArrayList insurances = users.users.get(i).insurances;
-
-                            System.out.println("Your insurances are "+ insurances);
-                            for(int x =0; x<users.users.get(i).insurances.size();x++){
+            start(users);
 
 
-
-                                premiumsList.add(users.users.get(i).insurances.get(x).CalculatePremium(users.users.get(i).insurances.get(x).purchasePrice,users.users.get(i).insurances.get(x).premium));
-                                //System.out.println(premiumsList);
-
-
-
-                            }
-                            double sum = 0.0;
-                            for(double element : premiumsList){
-                                sum +=element;
-                            }
-                            System.out.println("your premium is "+ sum);
-
-                        }
-
-
-
-                    }
-
-
-                    start(users);
-
-                    break;
-
-            }
         }
 
         else {

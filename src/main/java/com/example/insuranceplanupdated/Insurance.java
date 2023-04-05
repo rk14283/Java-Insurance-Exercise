@@ -18,10 +18,10 @@ public abstract class Insurance {
     public String toString(){
         return this.type + " " + this.purchasePrice;
     }
-   public double CalculatePremium(int purchasePrice, double premium) {
+   public double calculatePremium() {
        //   return this.purchasePrice*premium;
       // return  premium * purchasePrice;
-       this.premium = purchasePrice*premium;
-       return this.premium;
+       double premiumEuro = this.purchasePrice*this.premium;
+       return premiumEuro;
    }
 }

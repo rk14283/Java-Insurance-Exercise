@@ -8,8 +8,5 @@ public class CarInsurance extends Insurance {
         //now from this method how do I get
         //Premium();
     }
-    @Override
-    public double CalculatePremium(int purchasePrice, double premium) {
-        return super.CalculatePremium(purchasePrice, 0.0015);
-    }
+
 }

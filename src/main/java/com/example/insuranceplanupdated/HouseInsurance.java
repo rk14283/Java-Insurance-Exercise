@@ -8,9 +8,5 @@ public class HouseInsurance extends Insurance {
         //this method is returning raw value
         //Premium();
     }
-    @Override
-    public double CalculatePremium(int purchasePrice, double premium) {
-        return super.CalculatePremium(purchasePrice, 0.00025);
-    }
 
 }

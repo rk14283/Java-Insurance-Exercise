@@ -18,7 +18,17 @@ public class User {
         this.id = rand.nextInt( 9000);
         insurances = new ArrayList<Insurance>();
     }
+    public double calculateTotalPremium(){
+        double total = 0.0;
+
+        for(int i=0; i<insurances.size(); i++){
+            total = total+ this.insurances.get(i).calculatePremium();
+        }
+        return total;
+    }
     public void addInsurance(Insurance insurance){
         this.insurances.add(insurance);
     }
+
+
 }
